@@ -1,0 +1,124 @@
+import React,{useState} from 'react'
+
+function Counter() {
+    const[count,setCount]=useState(0);
+
+    let incre=()=>{
+        setCount(count+1)
+    }
+
+    let decre=()=>{
+        setCount(count-1)
+    }
+
+    let reset=()=>{
+        setCount(0)
+    }
+
+  return (
+    <div>
+        <h1>Counter App</h1>
+        <p>
+            {count}
+        </p>
+      <button onClick={incre}>Increment</button>
+      <button onClick={decre}>Decrement</button>
+      <button onClick={reset}>Reset</button>
+    </div>
+  )
+}
+
+export default Counter;
+
+import { useState } from "react";
+
+function Todolist() {
+  const [tasks, setTask] = useState([])
+  const [text, setText] = useState("")
+
+  const addTask = () => {
+    setTask([...tasks, { name: text, completed: false }])
+  }
+
+  const deleteTask = (index) => {
+    setTask(tasks.filter((_, i) => i !== index))
+  }
+  return (
+    <>
+      <h1>To-Do List</h1>
+      <input
+        value={text}
+        onChange={(e) => setText(e.target.value)}
+        placeholder="Enter Task"></input>
+      <button onClick={addTask}>Add</button>
+      <ul>
+        {tasks.map((task, index) => (
+          <li key={index}>
+            <input type="checkbox"
+              checked={tasks.completed} />
+            <span>{task.name}</span>
+            <button onClick={() => deleteTask(index)}>Delete</button>
+          </li>
+        ))}
+      </ul>
+    </>
+  )
+}
+
+import './App.css'
+function App() {
+  const [name, setName] = useState("")
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
+  const [submittedData, setSubmittedData] = useState(null)
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    const formData = { name, email, password}
+    setSubmittedData(formData);
+    setName("");
+    setEmail("");
+    setPassword("");
+
+  }
+
+  return (
+    <div>
+      <h1>Form</h1>
+      <form onSubmit={handleSubmit}>
+        <lable>Name</lable>
+        <input type="text"
+          placeholder="Enter your Name"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+        /><br/>
+
+        <lable>email</lable>
+        <input type="email"
+          placeholder="Enter your email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        /><br/>
+
+        <lable>password</lable>
+        <input type="password"
+          placeholder="Enter your password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        /><br/>
+
+        <button type="submit">Submit</button>
+      </form>
+
+      {submittedData && (
+        <div>
+          <p><strong>Name:</strong>{submittedData.name}</p>
+          <p><strong>Email</strong>{submittedData.email}</p>
+          <p><strong>Password:</strong>{submittedData.password}</p>
+      </div>
+      )
+      }
+    </div>
+  )
+
+}
+
